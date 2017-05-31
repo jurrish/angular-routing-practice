@@ -6,11 +6,14 @@ module.exports = ['$stateProvider', '$urlRouterProvider', routerConfig];
 
 //dont need to add controller because they get mounted by our context loops in the entry
 function routerConfig($stateProvider, $urlRouterProvider){
+  // $urlRouterProvider.when('/', '/home');
+  // $urlRouterProvider.when('/signup', '/join#signup');
+  // $urlRouterProvider.when('/signup', '/join#signup');
   let routes = [
     {
       name:'home',
       url: '/home',
-      template: require('../view/home/home.html'),
+      template: require('../../view/home/home.html'),
       //context handles this mounting/injecting of the controller for us! notice the pascal-casing of "HomeController"
       controller: 'HomeController',
       controllerAs: 'homeCtrl',
@@ -18,7 +21,7 @@ function routerConfig($stateProvider, $urlRouterProvider){
     {
       name:'signup',
       url: '/signup',
-      template: require('../view/signup/signup.html'),
+      template: require('../../view/signup/signup.html'),
       //context handles this mounting/injecting of the controller for us! notice the pascal-casing of "HomeController"
       controller: 'SignupController',
       controllerAs: 'signupCtrl',

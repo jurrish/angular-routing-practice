@@ -11,11 +11,12 @@ const path = require('path');
 const pascalcase = require('pascalcase');
 const camelcase = require('camelcase');
 
-const angular = require('angular');
+// const angular = require('angular');
 
 //this might be renamed as (redo npm install) ui-router!
-const uiRouter = require('angular-ui-router');
-const slugram = angular.module('slugram', [uiRouter]);
+require('@uirouter/angularjs');
+
+const slugram = angular.module('slugram', ['ui.router']);
 
 //in the config directory, we are putting our configs for our services. aka routes, etc.
 //gives us context object that has all the information of every file in the config directory. true = go through the directory recursively
@@ -23,11 +24,21 @@ const slugram = angular.module('slugram', [uiRouter]);
 //give me an array of every module in a directory, loop over all of those modules, then add them to slugram
 let context = require.context('./config/', true, /\.js$/);
 context.keys().forEach(key => {
+  console.log(context(key), ' context(key)');
   slugram.config(context(key));
 });
+// slugram.config(function($stateProvider){
+//   let home = {
+//     name: 'home',
+//     url: '/home',
+//     template: require('../view/home/home.html')
+//   };
+//   $stateProvider.state(home);
+// });
+
 
 //load all view controllers in .view/
-context = require.context('./view/', true, /\.js$/);
+context = require.context('../view/', true, /\.js$/);
 context.keys().forEach(key => {
   let name = pascalcase(path.basename(key, '.js'));
   //this injects our exported controller and mounts it to slugram
